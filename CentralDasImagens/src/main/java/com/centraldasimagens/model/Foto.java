@@ -24,4 +24,11 @@ public class Foto {
     private String titulo;
     private String imagem;
     private String descricao;
+
+    public Foto(FotoRequestDTO dados) {
+        this.imagem = dados.imagem();
+        this.titulo = dados.titulo();
+        this.descricao = dados.descricao();
+
+    }
 }
