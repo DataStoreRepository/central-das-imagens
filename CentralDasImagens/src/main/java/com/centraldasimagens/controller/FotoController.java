@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.centraldasimagens.model.Foto;
 import com.centraldasimagens.model.FotoRepository;
+import com.centraldasimagens.model.FotoRespostaDTO;
 
 @RestController
-@RequestMapping("foto")
+@RequestMapping("/foto")
 public class FotoController {
 
     @Autowired
     private FotoRepository repository;
     
     @GetMapping
-    public List<Foto> getAll() {
+    public List<FotoRespostaDTO> getAll() {
 
-        List<Foto> listaFotos = repository.findAll();
+        List<FotoRespostaDTO> listaFotos = repository.findAll().stream().map(FotoRespostaDTO::new).toList();
 
         return listaFotos;
 
