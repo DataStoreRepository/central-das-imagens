@@ -1,0 +1,8 @@
+.topper {
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1500px;
+    top: 0;
+}
