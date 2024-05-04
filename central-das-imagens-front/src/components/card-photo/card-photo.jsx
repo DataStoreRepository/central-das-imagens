@@ -1,14 +1,12 @@
 import "./card-photo.css"
 
-function CardPhoto () {
+function CardPhoto (props) {
     return (
-        <>
         <div className="card">
-            <img />
-            <h2></h2>
-            <h3><b>Autor: </b></h3>
+            <img src={props.foto} alt={props.foto}/>
+            <h3>{props.titulo}</h3>
+            <p>{props.descricao}</p>
         </div>
-        </>
     )
 }
 
