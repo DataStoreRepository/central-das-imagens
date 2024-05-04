@@ -7,6 +7,7 @@ function CardPhoto (props) {
             <h3>{props.titulo}</h3>
             <p>{props.descricao}</p>
         </div>
+       
     )
 }
 
