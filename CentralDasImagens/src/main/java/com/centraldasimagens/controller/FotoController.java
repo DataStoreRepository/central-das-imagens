@@ -41,4 +41,8 @@ public class FotoController {
         repository.save(dadosFoto);
 
     }
+
+    //delete e update
+
+    
 }
