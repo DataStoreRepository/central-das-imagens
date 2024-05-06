@@ -9,8 +9,8 @@ function App() {
     <div className='app'>
       <Navbar/>
       <h1>Bem Vindo</h1>
-      <button><Link to="/imagens"> Ir para todas as fotos </Link></button>
-      <button><Link to="/cadastrar-foto"> Cadastrar foto </Link></button>
+      <button><Link to="/imagens" className='link'> Ir para todas as fotos </Link></button>
+      <button><Link to="/cadastrar-foto"  className='link'> Cadastrar foto </Link></button>
     </div>
    
   )
