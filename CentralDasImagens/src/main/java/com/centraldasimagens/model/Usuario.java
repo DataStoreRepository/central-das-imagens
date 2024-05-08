@@ -32,6 +32,12 @@ public class Usuario {
     private String email;
     private String senha;
 
+    public Usuario(UsuarioRequestDTO dados) {
+        this.senha = dados.senha();
+        this.email = dados.email();
+        this.name = dados.name();
+    }
+
     @OneToMany
     @JoinColumn(name = "id_usuario")
     private List <Foto> fotos;
