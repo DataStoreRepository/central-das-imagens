@@ -13,24 +13,12 @@
     margin: 0;
 }
 
-button {
-    background-color: #000;
-    color: #F5F9E9;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
-}
-
-button:hover {
-    color: #F5F9E9;
-    transform: scale(0.95);
-}
-
 .link {
-    background-color: #000;
-    color: #F5F9E9;
+    /* background-color: #fff; */
+    color: #000000;
 }
+
 .link:hover {
-    color: #F5F9E9;
+    color: #000000;
     transform: scale(0.95);
 }
