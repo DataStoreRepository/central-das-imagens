@@ -66,9 +66,9 @@ public class FotoController {
     public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto,
                                            @PathVariable Long id) {
 
-        Optional<Foto> clienteOptional = repository.findById(id);
+        Optional<Foto> fotoOptional = repository.findById(id);
 
-        if(clienteOptional.isPresent()) {
+        if(fotoOptional.isPresent()) {
             //PathVariable
             foto.setId(id);
             
