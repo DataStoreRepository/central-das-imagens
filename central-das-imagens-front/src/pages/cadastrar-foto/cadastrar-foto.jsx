@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Input } from "../../components/input/input";
 import { Button } from "../../components/button/button";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner'
 
 
 import axios from 'axios'
@@ -24,7 +25,10 @@ function CadastrarFoto() {
         try {
             const response = await axios.post(API_URL, valores);
             response.status = 200
-            navigate("/")
+            toast.success('Cadastrado com sucesso!')
+            setTimeout(() => {
+                navigate("/")
+            }, 1000);
         } catch (error) {
             console.log(error)
             console.log("Deu erro!")
@@ -34,6 +38,7 @@ function CadastrarFoto() {
     return (
         <div className="fora">
             <h1>Cadastrar foto</h1>
+            <Toaster position="top-center" richColors/>
 
             <form onSubmit={handleSubmit}>
             <div>

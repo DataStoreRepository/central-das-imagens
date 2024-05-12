@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
+import { Toaster, toast } from 'sonner'
+
 import axios from "axios"
 
 
@@ -34,9 +36,14 @@ function CardPhoto (props) {
 
     const handleDelete = async () => {
         try {
+            
             const response = await axios.delete(`${API_URL}/${props.id}`) 
             response.status = 200
-            navigate("/")
+            toast.success('Deletado com sucesso!')
+            
+            setTimeout(() => {
+                navigate("/")
+            }, 1000);
         } catch (error) {
             console.log(error)
             console.log("Deu erro!")
@@ -45,6 +52,7 @@ function CardPhoto (props) {
 
     return (
         <div className="card">
+            <Toaster position="top-center" expand/>
             <img src={props.foto} alt={props.foto}/>
             <h3>{props.titulo}</h3>
             <p>{props.descricao}</p>

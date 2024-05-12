@@ -7,6 +7,7 @@ import "./atualizar-foto.css"
 
 import { Input } from "../../components/input/input";
 import { Button } from "../../components/button/button";
+import { Toaster, toast } from 'sonner'
 
 export function AtualizarFoto() {
 
@@ -44,7 +45,10 @@ export function AtualizarFoto() {
         try {
             const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
             response.status = 200
-            navigate("/")
+            toast.success('Atualizado com sucesso!')
+            setTimeout(() => {
+                navigate("/")
+            }, 1000);
         } catch (error) {
             console.log(error)
             console.log("Deu erro!")
@@ -60,6 +64,7 @@ export function AtualizarFoto() {
     return (
         <div className="fora">
             <h1>Alterar foto</h1>
+            <Toaster position="top-center" richColors/>
             <form onSubmit={handleSubmit}>
             <div>
                 <Input 
