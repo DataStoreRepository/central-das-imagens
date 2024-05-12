@@ -38,6 +38,19 @@ public class FotoController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}")
+    public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
+    Optional<Foto> fotoOptional = repository.findById(id);
+    
+        if (fotoOptional.isPresent()) {
+            FotoRespostaDTO fotoRespostaDTO = new FotoRespostaDTO(fotoOptional.get());
+            return ResponseEntity.ok(fotoRespostaDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }   
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void saveFoto(@RequestBody FotoRequestDTO dados) {
 
@@ -46,10 +59,12 @@ public class FotoController {
         repository.save(dadosFoto);
 
     }
+    
 
     //delete e update
     //PathVariable pela URL
     //RequestBody pelo corpo
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
         Optional<Foto> fotoOptional = repository.findById(id); 
@@ -62,15 +77,15 @@ public class FotoController {
         }
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
-    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto,
-                                           @PathVariable Long id) {
+    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
 
-        Optional<Foto> fotoOptional = repository.findById(id);
+        Optional<Foto> fotoOptional = repository.findById(foto.getId());
 
         if(fotoOptional.isPresent()) {
-            //PathVariable
-            foto.setId(id);
+            // //PathVariable
+            // foto.setId(id);
             
             //RequestBody
             repository.save(foto);
