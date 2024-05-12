@@ -1,5 +1,7 @@
-export function Button({children}) {
+import "./button.css"
+
+export function Button({type, children}) {
     return (
-        <button className="botao">{children}</button>
+        <button type={type} className="botao">{children}</button>
     )
 }
