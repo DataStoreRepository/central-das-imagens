@@ -36,7 +36,7 @@ function Imagens() {
       <Container>
         {fotos.length === 0 ? <Loading/> : (
           fotos.map((foto) => (
-              <CardPhoto key={foto.id} titulo={foto.titulo} descricao={foto.descricao} foto={foto.foto}/>
+              <CardPhoto key={foto.id} id={foto.id} titulo={foto.titulo} descricao={foto.descricao} foto={foto.foto}/>
           ))
         )}
         

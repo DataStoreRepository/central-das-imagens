@@ -1,0 +1,13 @@
+.fora {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 7% auto;
+    flex-direction: column;
+}
+
+.image-update {
+    width: 270px;
+    border-radius: 10px;
+    border: 3px solid rgba(70, 70, 70, 0.603);
+}

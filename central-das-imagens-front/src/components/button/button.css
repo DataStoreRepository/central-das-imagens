@@ -1,0 +1,30 @@
+.botao {
+    background-color: #000;
+    border: 1px solid transparent;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+.botao:focus,
+.botao:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+  
+.botao:hover {
+    transform: scale(0.95);
+}
+
+.link {
+    background-color: #000;
+    color: #F5F9E9;
+}
+
+.link:hover {
+    color: #F5F9E9;
+    transform: scale(0.95);
+}
+

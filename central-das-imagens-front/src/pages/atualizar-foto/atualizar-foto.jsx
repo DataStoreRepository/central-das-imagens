@@ -1,31 +1,51 @@
-import { useState } from "react";
-import { Input } from "../../components/input/input";
-import { Button } from "../../components/button/button";
-import { useNavigate } from "react-router-dom";
-import { Toaster, toast } from 'sonner'
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 import axios from 'axios'
+import "./atualizar-foto.css"
 
-function CadastrarFoto() {
+import { Input } from "../../components/input/input";
+import { Button } from "../../components/button/button";
+import { Toaster, toast } from 'sonner'
+
+export function AtualizarFoto() {
 
     const navigate = useNavigate()
+    const { id } = useParams()
 
     const [valores, setValores] = useState({
-        id: '',
+        id: id,
         descricao: '',
         imagem: '',
         titulo: ''
     })
 
-    const API_URL = "http://localhost:8080/foto"
+
+    const getData = async () =>  {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/foto/${id}`);
+            console.log(response.data)
+            setValores({
+                ...valores,
+                descricao: response.data.descricao,
+                imagem: response.data.foto,
+                titulo: response.data.titulo
+            })
+
+        } catch (error) {
+            console.log(error)
+            console.log("Deu erro!")
+        }
+    }    
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(API_URL, valores);
+            const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
             response.status = 200
-            toast.success('Cadastrado com sucesso!')
+            toast.success('Atualizado com sucesso!')
             setTimeout(() => {
                 navigate("/")
             }, 1000);
@@ -35,11 +55,16 @@ function CadastrarFoto() {
         }
     }
 
+    useEffect(() => {
+        if (id) {
+            getData();
+        }
+    }, [id])
+
     return (
         <div className="fora">
-            <h1>Cadastrar foto</h1>
+            <h1>Alterar foto</h1>
             <Toaster position="top-center" richColors/>
-
             <form onSubmit={handleSubmit}>
             <div>
                 <Input 
@@ -70,13 +95,12 @@ function CadastrarFoto() {
                     value={valores.imagem}
                     onChangeFN={e => setValores({...valores, imagem: e.target.value})}
                 />
-                <img className="image-update" src={valores.imagem} alt={valores.titulo}/>
+                 <img className="image-update" src={valores.imagem} alt={valores.titulo}/>
             </div>
-            <Button type={"submit"}>Cadastrar foto</Button>
+
+            <Button type={"submit"}>Atualizar foto</Button>
             </form>
-            
         </div>
     )
-}
 
-export default CadastrarFoto
+}

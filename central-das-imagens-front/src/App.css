@@ -13,3 +13,12 @@
     margin: 0;
 }
 
+.link {
+    /* background-color: #fff; */
+    color: #000000;
+}
+
+.link:hover {
+    color: #000000;
+    transform: scale(0.95);
+}
