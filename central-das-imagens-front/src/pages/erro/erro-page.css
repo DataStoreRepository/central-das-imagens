@@ -1,0 +1,12 @@
+.erro {
+    display: flex;
+    margin: 10% auto;
+    flex-direction: column;
+    max-width: 800px;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-erro {
+    width: 400px;
+}

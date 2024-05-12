@@ -8,11 +8,13 @@ import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import CadastrarFoto from './pages/cadastrar-foto/cadastrar-foto.jsx'
 import Imagens from './pages/imagens/imagens.jsx'
 import {AtualizarFoto} from './pages/atualizar-foto/atualizar-foto.jsx'
+import { ErroPage } from './pages/erro/erro-page.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    errorElement: <ErroPage/>,
   },
   {
     path: "/cadastrar-foto",
@@ -24,8 +26,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/atualizar/:id",
-    element: <AtualizarFoto/>
-  }
+    element: <AtualizarFoto/>,
+  },
+   
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
