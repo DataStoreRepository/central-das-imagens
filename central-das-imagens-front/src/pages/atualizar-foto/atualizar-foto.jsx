@@ -5,8 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 import "./atualizar-foto.css"
 
-
-
 import { Input } from "../../components/input/input";
 import { Button } from "../../components/button/button";
 
@@ -92,10 +90,10 @@ export function AtualizarFoto() {
                     value={valores.imagem}
                     onChangeFN={e => setValores({...valores, imagem: e.target.value})}
                 />
+                 <img className="image-update" src={valores.imagem} alt={valores.titulo}/>
             </div>
 
-            {/* <Button type={submit}>Atualizar foto</Button> */}
-            <button type="submit">update</button>
+            <Button type={"submit"}>Atualizar foto</Button>
             </form>
         </div>
     )
