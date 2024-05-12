@@ -31,3 +31,14 @@ h1 {
     background-color: #ffffff;
   }
 }
+
+.link {
+  background-color: #000;
+  color: #F5F9E9;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #F5F9E9;
+  transform: scale(0.95);
+}
