@@ -2,11 +2,12 @@ package com.centraldasimagens.model;
 
 import java.util.List;
 
+import com.centraldasimagens.dto.UsuarioRequestDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,6 @@ public class Usuario {
         this.name = dados.name();
     }
 
-    @OneToMany
-    @JoinColumn(name = "id_usuario")
-    private List <Foto> fotos;
+    @OneToMany(mappedBy = "usuario")
+    private List<Foto> fotos;
 }

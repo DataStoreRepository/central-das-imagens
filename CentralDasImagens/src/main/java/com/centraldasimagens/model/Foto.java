@@ -1,9 +1,14 @@
 package com.centraldasimagens.model;
 
+import com.centraldasimagens.dto.FotoRequestDTO;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,6 +36,10 @@ public class Foto {
         this.imagem = dados.imagem();
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
-
     }
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
 }
