@@ -3,7 +3,6 @@
 Projeto para o curso de ADS no Senac. Intuito é criar uma aplicação web de catálogo de imagens online, usando Java, Spring e React.
 
 ## Regras de Negócios:
-- Para público a partir de 12 anos;
 - Público precisa de um usuário, e-mail e senha de 4 dígitos númericos para realizar cadastro;
 - Login é realizado pelo usuário e senha de 4 dígitos numéricos;
 - Terá uma tela responsável pelo cadastro do usuário;
