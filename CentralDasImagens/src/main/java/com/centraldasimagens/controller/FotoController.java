@@ -75,7 +75,30 @@ public class FotoController {
         fotoService.savePhotoWithUser(foto, usuario);
 
     }
-    
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
+    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
+
+        Optional<Foto> fotoOptional = repository.findById(foto.getId());
+        Usuario usuario = new Usuario();
+        usuario.setEmail(foto.getUsuario().getEmail());
+        usuario.setName(foto.getUsuario().getName());
+        usuario.setSenha(foto.getUsuario().getSenha());
+
+        if(fotoOptional.isPresent()) {
+            // //PathVariable
+            // foto.setId(id);
+            
+            //RequestBody
+            fotoService.savePhotoWithUser(foto, usuario);
+
+            return ResponseEntity.ok(foto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+        
 
     //delete e update
     //PathVariable pela URL
@@ -92,24 +115,4 @@ public class FotoController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PutMapping("/{id}")
-    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
-
-        Optional<Foto> fotoOptional = repository.findById(foto.getId());
-
-        if(fotoOptional.isPresent()) {
-            // //PathVariable
-            // foto.setId(id);
-            
-            //RequestBody
-            repository.save(foto);
-
-            return ResponseEntity.ok(foto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
 }
