@@ -11,11 +11,19 @@ function CadastrarFoto() {
 
     const navigate = useNavigate()
 
+    //teste
+    const usuario = {
+        name : "Milena",
+        email : "milena@gmail.com",
+        senha : "123"
+    }
+
     const [valores, setValores] = useState({
         id: '',
         descricao: '',
         imagem: '',
-        titulo: ''
+        titulo: '',
+        usuario
     })
 
     const API_URL = "http://localhost:8080/foto"
@@ -70,7 +78,7 @@ function CadastrarFoto() {
                     value={valores.imagem}
                     onChangeFN={e => setValores({...valores, imagem: e.target.value})}
                 />
-                <img className="image-update" src={valores.imagem} alt={valores.titulo}/>
+                {valores.imagem && <img className="image-update" src={valores.imagem} alt={valores.titulo}/>}
             </div>
             <Button type={"submit"}>Cadastrar foto</Button>
             </form>
