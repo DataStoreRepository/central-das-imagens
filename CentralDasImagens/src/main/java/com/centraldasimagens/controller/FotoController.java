@@ -22,6 +22,7 @@ import com.centraldasimagens.dto.FotoRespostaDTO;
 import com.centraldasimagens.model.Usuario;
 import com.centraldasimagens.services.FotoService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/foto")
 public class FotoController {
@@ -32,31 +33,25 @@ public class FotoController {
     @Autowired
     private FotoService fotoService;
 
-    
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<FotoRespostaDTO> getAll() {
-
         List<FotoRespostaDTO> listaFotos = repository.findAll().stream().map(FotoRespostaDTO::new).toList();
 
         return listaFotos;
-
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
-    Optional<Foto> fotoOptional = repository.findById(id);
-    
+        Optional<Foto> fotoOptional = repository.findById(id);
+
         if (fotoOptional.isPresent()) {
             FotoRespostaDTO fotoRespostaDTO = new FotoRespostaDTO(fotoOptional.get());
             return ResponseEntity.ok(fotoRespostaDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
-    }   
+    }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void saveFoto(@RequestBody FotoRequestDTO dados) {
 
@@ -70,13 +65,10 @@ public class FotoController {
         foto.setDescricao(dados.descricao());
         foto.setTitulo(dados.titulo());
 
-
-
         fotoService.savePhotoWithUser(foto, usuario);
 
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
     public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
 
@@ -86,27 +78,17 @@ public class FotoController {
         usuario.setName(foto.getUsuario().getName());
         usuario.setSenha(foto.getUsuario().getSenha());
 
-        if(fotoOptional.isPresent()) {
-            // //PathVariable
-            // foto.setId(id);
-            
-            //RequestBody
+        if (fotoOptional.isPresent()) {
             fotoService.savePhotoWithUser(foto, usuario);
-
             return ResponseEntity.ok(foto);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-        
-
-    //delete e update
-    //PathVariable pela URL
-    //RequestBody pelo corpo
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id); 
+        Optional<Foto> fotoOptional = repository.findById(id);
 
         if (fotoOptional.isPresent()) {
             repository.deleteById(id);
