@@ -12,6 +12,7 @@ function App() {
       <h1>Bem Vindo</h1>
       <Button> <Link to="/imagens" className='link'>Ir para todas as fotos </Link></Button>
       <Button> <Link to="/cadastrar-foto" className='link'>Cadastrar Foto </Link></Button>
+      <Button> <Link to="/cadastrar-usuario" className='link'>Cadastrar Usuário</Link></Button>
     </div>
    
   )
