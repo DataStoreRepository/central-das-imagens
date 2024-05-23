@@ -16,58 +16,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centraldasimagens.model.Foto;
-import com.centraldasimagens.model.FotoRepository;
-import com.centraldasimagens.model.FotoRequestDTO;
-import com.centraldasimagens.model.FotoRespostaDTO;
+import com.centraldasimagens.repository.FotoRepository;
+import com.centraldasimagens.dto.FotoRequestDTO;
+import com.centraldasimagens.dto.FotoRespostaDTO;
+import com.centraldasimagens.model.Usuario;
+import com.centraldasimagens.services.FotoService;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/foto")
 public class FotoController {
 
     @Autowired
     private FotoRepository repository;
-    
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+
+    @Autowired
+    private FotoService fotoService;
+
     @GetMapping
     public List<FotoRespostaDTO> getAll() {
-
         List<FotoRespostaDTO> listaFotos = repository.findAll().stream().map(FotoRespostaDTO::new).toList();
 
         return listaFotos;
-
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
-    Optional<Foto> fotoOptional = repository.findById(id);
-    
+        Optional<Foto> fotoOptional = repository.findById(id);
+
         if (fotoOptional.isPresent()) {
             FotoRespostaDTO fotoRespostaDTO = new FotoRespostaDTO(fotoOptional.get());
             return ResponseEntity.ok(fotoRespostaDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
-    }   
+    }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void saveFoto(@RequestBody FotoRequestDTO dados) {
 
-        Foto dadosFoto = new Foto(dados);
+        Usuario usuario = new Usuario();
+        usuario.setEmail(dados.usuario().email());
+        usuario.setName(dados.usuario().name());
+        usuario.setSenha(dados.usuario().senha());
 
-        repository.save(dadosFoto);
+        Foto foto = new Foto();
+        foto.setImagem(dados.imagem());
+        foto.setDescricao(dados.descricao());
+        foto.setTitulo(dados.titulo());
+
+        fotoService.savePhotoWithUser(foto, usuario);
 
     }
-    
 
-    //delete e update
-    //PathVariable pela URL
-    //RequestBody pelo corpo
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
+    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
+
+        Optional<Foto> fotoOptional = repository.findById(foto.getId());
+        Usuario usuario = new Usuario();
+        usuario.setEmail(foto.getUsuario().getEmail());
+        usuario.setName(foto.getUsuario().getName());
+        usuario.setSenha(foto.getUsuario().getSenha());
+
+        if (fotoOptional.isPresent()) {
+            fotoService.savePhotoWithUser(foto, usuario);
+            return ResponseEntity.ok(foto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id); 
+        Optional<Foto> fotoOptional = repository.findById(id);
 
         if (fotoOptional.isPresent()) {
             repository.deleteById(id);
@@ -76,24 +97,4 @@ public class FotoController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PutMapping("/{id}")
-    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
-
-        Optional<Foto> fotoOptional = repository.findById(foto.getId());
-
-        if(fotoOptional.isPresent()) {
-            // //PathVariable
-            // foto.setId(id);
-            
-            //RequestBody
-            repository.save(foto);
-
-            return ResponseEntity.ok(foto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
 }

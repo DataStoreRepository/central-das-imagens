@@ -14,11 +14,19 @@ export function AtualizarFoto() {
     const navigate = useNavigate()
     const { id } = useParams()
 
+     //teste
+     const usuario = {
+        name : "Milena",
+        email : "m0000@gmail.com",
+        senha : "123"
+    }
+
     const [valores, setValores] = useState({
         id: id,
         descricao: '',
         imagem: '',
-        titulo: ''
+        titulo: '',
+        usuario
     })
 
 
@@ -43,6 +51,7 @@ export function AtualizarFoto() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
+            
             const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
             response.status = 200
             toast.success('Atualizado com sucesso!')
@@ -50,6 +59,7 @@ export function AtualizarFoto() {
                 navigate("/")
             }, 1000);
         } catch (error) {
+            console.log(valores)
             console.log(error)
             console.log("Deu erro!")
         }
@@ -95,7 +105,7 @@ export function AtualizarFoto() {
                     value={valores.imagem}
                     onChangeFN={e => setValores({...valores, imagem: e.target.value})}
                 />
-                 <img className="image-update" src={valores.imagem} alt={valores.titulo}/>
+                {valores.imagem && <img className="image-update" src={valores.imagem} alt={valores.titulo}/>}
             </div>
 
             <Button type={"submit"}>Atualizar foto</Button>

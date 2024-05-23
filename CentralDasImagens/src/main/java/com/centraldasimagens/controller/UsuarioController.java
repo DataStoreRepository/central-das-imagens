@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.centraldasimagens.model.Foto;
 import com.centraldasimagens.model.Usuario;
-import com.centraldasimagens.model.UsuarioRepository;
-import com.centraldasimagens.model.UsuarioRequestDTO;
-import com.centraldasimagens.model.UsuarioRespostaDTO;
+import com.centraldasimagens.repository.UsuarioRepository;
+import com.centraldasimagens.dto.UsuarioRequestDTO;
+import com.centraldasimagens.dto.UsuarioRespostaDTO;
 
 @RestController
 @RequestMapping("/usuario")
@@ -38,6 +39,11 @@ public class UsuarioController {
     public void saveUsuario(@RequestBody UsuarioRequestDTO dados) {
 
         Usuario dadosUsuario = new Usuario(dados);
+        if(dadosUsuario.getFotos() != null) {
+            for(Foto foto : dadosUsuario.getFotos()) {
+                foto.setUsuario(dadosUsuario);
+            }
+        }
 
         repository.save(dadosUsuario);
     }
