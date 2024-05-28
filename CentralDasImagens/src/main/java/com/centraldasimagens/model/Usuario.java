@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.centraldasimagens.dto.UsuarioRequestDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +40,6 @@ public class Usuario {
         this.name = dados.name();
     }
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Foto> fotos;
 }
