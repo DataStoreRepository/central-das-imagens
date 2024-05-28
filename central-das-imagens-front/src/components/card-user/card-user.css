@@ -1,0 +1,61 @@
+.principal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    width: 150px; /* Defina a largura desejada */
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.principal tr td {
+    max-width: 250px;
+    min-width: 250px; 
+    text-align: left; 
+    border-bottom: 1px solid #ddd; 
+}
+
+.principal tr td.gerenciar {
+    max-width: 150px;
+    min-width: 150px;
+    padding: 8px; 
+    text-align: left; 
+    border-bottom: 1px solid #ddd; 
+}
