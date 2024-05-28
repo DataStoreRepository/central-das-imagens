@@ -10,6 +10,7 @@ import Imagens from './pages/imagens/imagens.jsx'
 import {AtualizarFoto} from './pages/atualizar-foto/atualizar-foto.jsx'
 import { ErroPage } from './pages/erro/erro-page.jsx'
 import { CadastrarUsuario } from './pages/cadastrar-usuario/cadastrar-usuario'
+import { Usuarios } from './pages/usuarios/usuarios'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     path: "/cadastrar-usuario",
     element: <CadastrarUsuario/>,
   },  
+  {
+    path: "/usuarios",
+    element: <Usuarios/>,
+  }, 
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
