@@ -9,11 +9,13 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Toaster, toast } from 'sonner'
 
 import axios from "axios"
+
+import { handleDelete } from "../../api/usuario";
 
 
 
@@ -34,22 +36,21 @@ function CardPhoto (props) {
       document.body.classList.remove('active-modal')
     }
 
-    const handleDelete = async () => {
+    const confirmDelete = async () => {
         try {
-            
-            const response = await axios.delete(`${API_URL}/${props.id}`) 
-            response.status = 200
-            toast.success('Deletado com sucesso!')
-            
+            await handleDelete(API_URL, props.id);
+            toast.success('Deletado com sucesso!');
             setTimeout(() => {
-                navigate("/")
+                navigate("/");
             }, 1000);
         } catch (error) {
-            console.log(error)
-            console.log("Deu erro!")
+            console.log(error);
+            toast.error('Erro ao deletar!');
+        } finally {
+            toggleModal(); // Close the modal after attempting deletion
         }
-    }
-
+    };
+    
     return (
         <div className="card">
             <Toaster position="top-center" expand/>
@@ -72,7 +73,7 @@ function CardPhoto (props) {
                 <button className="close-modal" onClick={toggleModal}>
                     <IoIosCloseCircle size={20} />
                 </button>
-                <Button onClick={handleDelete}>Sim, tenho certeza!</Button>
+                <Button onClick={confirmDelete}>Sim, tenho certeza!</Button>
             </div>
             </div>
             )}

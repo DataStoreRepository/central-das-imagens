@@ -41,6 +41,7 @@ public class FotoController {
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
         Optional<Foto> fotoOptional = repository.findById(id);
 
@@ -53,6 +54,7 @@ public class FotoController {
     }
 
     @PostMapping
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void saveFoto(@RequestBody FotoRequestDTO dados) {
 
         Usuario usuario = new Usuario();
@@ -70,6 +72,7 @@ public class FotoController {
     }
 
     @PutMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
 
         Optional<Foto> fotoOptional = repository.findById(foto.getId());
@@ -87,6 +90,7 @@ public class FotoController {
     }
     
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
         Optional<Foto> fotoOptional = repository.findById(id);
 

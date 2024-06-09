@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import Navbar from '../../components/navbar/navbar'
-import { Container } from '../../components/container/container'
 import { Loading } from '../../components/loading/loading'
 import { getUsuarioData } from '../../api/usuario'
 import { CardUser } from '../../components/card-user/card-user'
