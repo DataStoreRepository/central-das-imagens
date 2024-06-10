@@ -8,11 +8,9 @@ import "./atualizar-foto.css"
 import { Input } from "../../components/input/input";
 import { Button } from "../../components/button/button";
 import { Toaster, toast } from 'sonner'
-import { handleDelete } from "../../api/usuario";
+// import { handleSubmit } from "../../api/usuario";
 
 export function AtualizarFoto() {
-
-    const API_URL = "http://localhost:8080/foto/"
 
     const navigate = useNavigate()
     const { id } = useParams()
@@ -51,36 +49,35 @@ export function AtualizarFoto() {
         }
     }    
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     try {
-            
-    //         const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
-    //         response.status = 200
-    //         toast.success('Atualizado com sucesso!')
-    //         setTimeout(() => {
-    //             navigate("/")
-    //         }, 1000);
-    //     } catch (error) {
-    //         console.log(valores)
-    //         console.log(error)
-    //         console.log("Deu erro!")
-    //     }
-    // }
-
-    const handleSubmitFunction = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         try {
-            await handleDelete(API_URL, props.id, e, valores);
-            toast.success('Atualizado com sucesso!');
+            
+            const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
+            response.status = 200
+            toast.success('Atualizado com sucesso!')
             setTimeout(() => {
-                navigate("/");
+                navigate("/")
             }, 1000);
         } catch (error) {
-            console.log(error);
-        } 
-    };
+            console.log(valores)
+            console.log(error)
+            console.log("Deu erro!")
+        }
+    }
 
-
+    // const handleSubmitFunction = async () => {
+    //     try {
+    //         const API_URL = `http://localhost:8080/foto/${id}`
+    //         await handleSubmit(e, API_URL, valores);
+    //         toast.success('Atualizado com sucesso!');
+    //         setTimeout(() => {
+    //             navigate("/");
+    //         }, 1000);
+    //     } catch (error) {
+    //         console.log(error);
+    //     } 
+    // };
 
     useEffect(() => {
         if (id) {
@@ -92,7 +89,7 @@ export function AtualizarFoto() {
         <div className="fora">
             <h1>Alterar foto</h1>
             <Toaster position="top-center" richColors/>
-            <form onSubmit={handleSubmitFunction}>
+            <form onSubmit={handleSubmit}>
             <div>
                 <Input 
                     type="text" 

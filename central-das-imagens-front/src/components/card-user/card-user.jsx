@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./card-user.css"
 import { handleDelete } from "../../api/usuario";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner'
 
 
@@ -44,7 +44,7 @@ export function CardUser(props) {
                 <tr>
                     <td>{props.name}</td>
                     <td>{props.email}</td>
-                    <td className="gerenciar"><button class="edit-btn">Editar</button></td>
+                    <td className="gerenciar"><button class="edit-btn"> <Link  to={`/usuarios/atualizar/${props.id}`}>Editar</Link> </button></td>
                     <td className="gerenciar"><button class="delete-btn" onClick={confirmDelete}>Deletar</button></td>
                 </tr>
             </tbody>

@@ -11,6 +11,7 @@ import {AtualizarFoto} from './pages/atualizar-foto/atualizar-foto.jsx'
 import { ErroPage } from './pages/erro/erro-page.jsx'
 import { CadastrarUsuario } from './pages/cadastrar-usuario/cadastrar-usuario'
 import { Usuarios } from './pages/usuarios/usuarios'
+import { AtualizarUsuario } from './pages/atualizar-usuario/atualizar-usuario'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     path: "/usuarios",
     element: <Usuarios/>,
   }, 
+  {
+    path: "/usuarios/atualizar/:id",
+    element: <AtualizarUsuario/>,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -24,10 +24,10 @@ export const handleDelete = async (API_URL, id) => {
 }
 
 
-export const handleSubmit = async (e, API_URL, valores, id) => {
+export const handleSubmit = async (e, API_URL, valores) => {
   e.preventDefault()
   try {
-      const response = await axios.put(`API_URL${id}`, valores);
+      const response = await axios.put(`${API_URL}`, valores);
       response.status = 200
   } catch (error) {
       console.log("Deu erro!")
