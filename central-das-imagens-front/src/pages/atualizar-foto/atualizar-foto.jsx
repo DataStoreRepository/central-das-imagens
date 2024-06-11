@@ -30,9 +30,7 @@ export function AtualizarFoto() {
         usuario
     })
 
-
     const getData = async () =>  {
-
         try {
             const response = await axios.get(`http://localhost:8080/foto/${id}`);
             console.log(response.data)
@@ -52,7 +50,6 @@ export function AtualizarFoto() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            
             const response = await axios.put(`http://localhost:8080/foto/${id}`, valores);
             response.status = 200
             toast.success('Atualizado com sucesso!')
@@ -60,8 +57,6 @@ export function AtualizarFoto() {
                 navigate("/")
             }, 1000);
         } catch (error) {
-            console.log(valores)
-            console.log(error)
             console.log("Deu erro!")
         }
     }
@@ -121,7 +116,6 @@ export function AtualizarFoto() {
                 />
                 {valores.imagem && <img className="image-update" src={valores.imagem} alt={valores.titulo}/>}
             </div>
-
             <Button type={"submit"}>Atualizar foto</Button>
             </form>
         </div>
