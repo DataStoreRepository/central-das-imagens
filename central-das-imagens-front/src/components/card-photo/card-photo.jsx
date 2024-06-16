@@ -9,11 +9,10 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Toaster, toast } from 'sonner'
 
-import axios from "axios"
 
 import { handleDelete } from "../../api/usuario";
 

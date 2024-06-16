@@ -25,7 +25,7 @@ import com.centraldasimagens.dto.UsuarioRespostaDTO;
 @RestController
 @RequestMapping("/usuario")
 
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
     @Autowired
@@ -74,6 +74,19 @@ public class UsuarioController {
         if(usuarioOptional.isPresent()) {
             repository.save(usuario);
             return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<UsuarioRespostaDTO> getById(@PathVariable Long id) {
+        Optional<Usuario> usuarioOptional = repository.findById(id);
+
+        if (usuarioOptional.isPresent()) {
+            UsuarioRespostaDTO usuarioRespostaDTO = new UsuarioRespostaDTO(usuarioOptional.get());
+            return ResponseEntity.ok(usuarioRespostaDTO);
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -40,6 +40,12 @@ public class Usuario {
         this.name = dados.name();
     }
 
+    public Usuario(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Foto> fotos;
 }
