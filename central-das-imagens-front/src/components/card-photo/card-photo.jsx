@@ -4,6 +4,7 @@ import { Button } from "../button/button"
 
 import { BsPencilSquare } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa6";
+import { FaDownload } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
@@ -56,9 +57,12 @@ function CardPhoto (props) {
             <img src={props.foto} alt={props.foto}/>
             <h3>{props.titulo}</h3>
             <p>{props.descricao}</p>
-            <div className="botoes">
-                <Button> <Link className="link" to={`/atualizar/${props.id}`}> <BsPencilSquare /> Editar</Link> </Button>
-                <Button onClick={toggleModal}> <FaTrash /> Deletar</Button>
+            <div className="botoes-container">
+                <Button color="#69FFF1" size="100%"> <FaDownload /> Baixar</Button>
+                <div className="botoes">
+                    <Button color="#99C24D"> <Link className="link-" to={`/atualizar/${props.id}`}> <BsPencilSquare /> Editar</Link> </Button>
+                    <Button color="#A40606" onClick={toggleModal}> <FaTrash/> Deletar</Button>
+                </div>
             </div>
             {modal && (
             <div className="modal">

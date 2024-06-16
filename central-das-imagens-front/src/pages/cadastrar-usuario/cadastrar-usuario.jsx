@@ -5,6 +5,10 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
+import Navbar from "../../components/navbar/navbar"
+
+import "./cadastrar-usuario.css"
+
 export function CadastrarUsuario () {
 
     const navigate = useNavigate()
@@ -34,8 +38,9 @@ export function CadastrarUsuario () {
 
 
     return(
-        <div className="fora">
-            <h1>Cadastrar Usuário</h1>
+        <div className="fora-cad">
+            <div className="blur">
+            <h1>Cadastre-se!</h1>
             <Toaster position="top-center" richColors/>
             <form onSubmit={handleSubmit}>
             <div>
@@ -68,9 +73,9 @@ export function CadastrarUsuario () {
                     onChangeFN={e => setValores({...valores, senha: e.target.value})}
                 />
             </div>
-            <Button type={"submit"}>Cadastrar usuário</Button>
+                <Button className="btn-cad" color="#63D471" size="100%" type={"submit"}>Cadastrar usuário</Button>
             </form>
+            </div>
         </div>
-
     )
 }
