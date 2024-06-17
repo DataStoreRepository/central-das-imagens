@@ -44,8 +44,9 @@ function CadastrarFoto() {
     }
 
     return (
-        <div className="fora">
-            <h1>Cadastrar foto</h1>
+        <div className="fora-cad">
+            <div className="blur">
+            <h1>Cadastrar nova foto</h1>
             <Toaster position="top-center" richColors/>
 
             <form onSubmit={handleSubmit}>
@@ -80,9 +81,10 @@ function CadastrarFoto() {
                 />
                 {valores.imagem && <img className="image-update" src={valores.imagem} alt={valores.titulo}/>}
             </div>
-            <Button type={"submit"}>Cadastrar foto</Button>
+            <Button className="btn-cad" color="#63D471" size="100%" type={"submit"}>Cadastrar foto</Button>
             </form>
             
+            </div>
         </div>
     )
 }

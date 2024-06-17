@@ -17,7 +17,7 @@ function Imagens() {
 
   return (
     <>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Container>
         {fotos.length === 0 ? <Loading/> : (
           fotos.map((foto) => (
