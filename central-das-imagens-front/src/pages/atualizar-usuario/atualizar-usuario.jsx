@@ -1,4 +1,4 @@
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import { Input } from "../../components/input/input";
 import { Button } from "../../components/button/button";
 import { useState, useEffect } from "react";
@@ -14,6 +14,7 @@ export function AtualizarUsuario() {
         id: id,
         name: '',
         email: '',
+        senha: ''
     })
 
     
@@ -26,6 +27,7 @@ export function AtualizarUsuario() {
                 ...valores,
                 name: response.data.name,
                 email: response.data.email,
+                senha: response.data.senha,
             })
 
         } catch (error) {
@@ -38,7 +40,7 @@ export function AtualizarUsuario() {
         e.preventDefault()
         try {
             
-            const response = await axios.put(`http://localhost:8080/usuario/${id}`, valores);
+            const response = await axios.post(`http://localhost:8080/usuario`, valores);
             response.status = 200
             toast.success('Atualizado com sucesso!')
             setTimeout(() => {
@@ -67,7 +69,7 @@ export function AtualizarUsuario() {
                     type="text"
                     text="Nome do Usuário"
                     name="name"
-                    placeholder="Insira o nome do Usuário"
+                    placeholder="Insira o nome"
                     value={valores.name}
                     onChangeFN={e => setValores({...valores, name: e.target.value})}
                     />
@@ -77,9 +79,19 @@ export function AtualizarUsuario() {
                     type="email"
                     text="E-mail do Usuário"
                     name="email"
-                    placeholder="Insira o E-mail do Usuário"
+                    placeholder="Insira o e-mail"
                     value={valores.email}
                     onChangeFN={e => setValores({...valores, email: e.target.value})}
+                    />
+                </div>
+                <div>
+                    <Input
+                    type="senha"
+                    text="Senha do Usuário"
+                    name="password"
+                    placeholder="Insira a nova senha"
+                    value={valores.senha}
+                    onChangeFN={e => setValores({...valores, senha: e.target.value})}
                     />
                 </div>
                 <Button type={"submit"}>Atualizar</Button>

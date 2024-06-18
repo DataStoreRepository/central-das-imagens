@@ -25,14 +25,13 @@ import com.centraldasimagens.dto.UsuarioRespostaDTO;
 @RestController
 @RequestMapping("/usuario")
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository repository;
 
     @GetMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public List<UsuarioRespostaDTO> getAll() {
         List<UsuarioRespostaDTO> listaUsuarios = repository.findAll().stream().map(UsuarioRespostaDTO::new).toList();
         
@@ -40,7 +39,6 @@ public class UsuarioController {
     }
     
     @PostMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void saveUsuario(@RequestBody UsuarioRequestDTO dados) {
 
         Usuario dadosUsuario = new Usuario(dados);
@@ -54,7 +52,6 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         Optional<Usuario> usuarioOptional = repository.findById(id);
 
@@ -67,7 +64,6 @@ public class UsuarioController {
     }
 
     @PutMapping("/id")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
         Optional<Usuario> usuarioOptional = repository.findById(usuario.getId());
         
@@ -80,7 +76,6 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<UsuarioRespostaDTO> getById(@PathVariable Long id) {
         Optional<Usuario> usuarioOptional = repository.findById(id);
 
