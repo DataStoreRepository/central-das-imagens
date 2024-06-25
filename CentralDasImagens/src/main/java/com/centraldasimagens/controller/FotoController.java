@@ -28,77 +28,32 @@ import com.centraldasimagens.services.FotoService;
 public class FotoController {
 
     @Autowired
-    private FotoRepository repository;
-
-    @Autowired
     private FotoService fotoService;
 
     @GetMapping
-    public List<FotoRespostaDTO> getAll() {
-        List<FotoRespostaDTO> listaFotos = repository.findAll().stream().map(FotoRespostaDTO::new).toList();
-
-        return listaFotos;
+    public List<FotoRespostaDTO> listarTodasFotos() {
+        return fotoService.getAll();
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id);
-
-        if (fotoOptional.isPresent()) {
-            FotoRespostaDTO fotoRespostaDTO = new FotoRespostaDTO(fotoOptional.get());
-            return ResponseEntity.ok(fotoRespostaDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<FotoRespostaDTO> pegarFotoPorId(@PathVariable Long id) {
+        return fotoService.getById(id);
     }
 
     @PostMapping
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void saveFoto(@RequestBody FotoRequestDTO dados) {
-
-        Usuario usuario = new Usuario();
-        usuario.setEmail(dados.usuario().email());
-        usuario.setName(dados.usuario().name());
-        usuario.setSenha(dados.usuario().senha());
-
-        Foto foto = new Foto();
-        foto.setImagem(dados.imagem());
-        foto.setDescricao(dados.descricao());
-        foto.setTitulo(dados.titulo());
-
-        fotoService.savePhotoWithUser(foto, usuario);
-
+    public void salvarFoto(@RequestBody FotoRequestDTO dados) {
+        fotoService.saveFoto(dados);
     }
 
     @PutMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
-
-        Optional<Foto> fotoOptional = repository.findById(foto.getId());
-        Usuario usuario = new Usuario();
-        usuario.setEmail(foto.getUsuario().getEmail());
-        usuario.setName(foto.getUsuario().getName());
-        usuario.setSenha(foto.getUsuario().getSenha());
-
-        if (fotoOptional.isPresent()) {
-            fotoService.savePhotoWithUser(foto, usuario);
-            return ResponseEntity.ok(foto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Foto> atualizarFoto(@RequestBody Foto foto) {
+        return fotoService.updateFoto(foto);
     }
     
+    
     @DeleteMapping("/{id}")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id);
-
-        if (fotoOptional.isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletarFoto(@PathVariable Long id) {
+        return fotoService.deleteFoto(id);
     }
+    
 }

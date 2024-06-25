@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.centraldasimagens.model.Foto;
 import com.centraldasimagens.model.Usuario;
 import com.centraldasimagens.repository.UsuarioRepository;
+import com.centraldasimagens.services.UsuarioService;
 import com.centraldasimagens.dto.UsuarioRequestDTO;
 import com.centraldasimagens.dto.UsuarioRespostaDTO;
 
@@ -27,63 +28,32 @@ import com.centraldasimagens.dto.UsuarioRespostaDTO;
 
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
 public class UsuarioController {
-
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioService usuarioService;
+  
 
     @GetMapping
-    public List<UsuarioRespostaDTO> getAll() {
-        List<UsuarioRespostaDTO> listaUsuarios = repository.findAll().stream().map(UsuarioRespostaDTO::new).toList();
-        
-        return listaUsuarios;
+    public List<UsuarioRespostaDTO> listarUsuarios() {
+        return usuarioService.getAll();
     }
     
     @PostMapping
-    public void saveUsuario(@RequestBody UsuarioRequestDTO dados) {
-
-        Usuario dadosUsuario = new Usuario(dados);
-        if(dadosUsuario.getFotos() != null) {
-            for(Foto foto : dadosUsuario.getFotos()) {
-                foto.setUsuario(dadosUsuario);
-            }
-        }
-
-        repository.save(dadosUsuario);
+    public void salvarUsuario(@RequestBody UsuarioRequestDTO dados) {
+        usuarioService.saveUsuario(dados);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        Optional<Usuario> usuarioOptional = repository.findById(id);
-
-        if(usuarioOptional.isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deletarUsuario(@PathVariable Long id) {
+        return usuarioService.deleteUsuario(id);
     }
 
     @PutMapping("/id")
-    public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
-        Optional<Usuario> usuarioOptional = repository.findById(usuario.getId());
-        
-        if(usuarioOptional.isPresent()) {
-            repository.save(usuario);
-            return ResponseEntity.ok(usuario);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Usuario> atualizarUsuario(@RequestBody Usuario usuario){
+        return usuarioService.updateUsuario(usuario);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioRespostaDTO> getById(@PathVariable Long id) {
-        Optional<Usuario> usuarioOptional = repository.findById(id);
-
-        if (usuarioOptional.isPresent()) {
-            UsuarioRespostaDTO usuarioRespostaDTO = new UsuarioRespostaDTO(usuarioOptional.get());
-            return ResponseEntity.ok(usuarioRespostaDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<UsuarioRespostaDTO> pegarUsuarioPorId(@PathVariable Long id) {
+        return usuarioService.getById(id);
     }
 }
