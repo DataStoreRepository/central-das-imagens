@@ -10,16 +10,18 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Toaster, toast } from 'sonner'
 
 
 import { handleDelete } from "../../api/usuario";
+import { AuthContext } from "../../context/AuthContext";
 
 
 
 function CardPhoto (props) {
+    const { user } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
@@ -52,15 +54,10 @@ function CardPhoto (props) {
     };
 
     function handleDownload() {
-        // Substitua 'props.foto' pela URL completa da foto
-        const fotoUrl = props.foto;
-    
         // Crie um link temporário para o download
         const link = document.createElement('a');
-        link.href = fotoUrl;
+        link.href = props.foto;
         link.download = 'minha-foto.jpg'; // Nome do arquivo para download
-    
-        // Simule um clique no link para iniciar o download
         link.click();
     }
     
@@ -71,11 +68,13 @@ function CardPhoto (props) {
             <h3>{props.titulo}</h3>
             <p>{props.descricao}</p>
             <div className="botoes-container">
-                <Button color="#69FFF1" size="100%"> <FaDownload /> <a download="filename" href={props.foto} >Baixar</a>   </Button>
-                <div className="botoes">
-                    <Button color="#99C24D"> <Link className="link-" to={`/atualizar/${props.id}`}> <BsPencilSquare /> Editar</Link> </Button>
-                    <Button color="#A40606" onClick={toggleModal}> <FaTrash/> Deletar</Button>
-                </div>
+                <Button color="#69FFF1" size="100%" onClick={handleDownload}> <FaDownload /> <a download="filename" href={props.foto} >Baixar</a>   </Button>
+                {user && user.name === "admin" && (
+                    <div className="botoes">
+                        <Button color="#99C24D"> <Link className="link-" to={`/atualizar/${props.id}`}> <BsPencilSquare /> Editar</Link> </Button>
+                        <Button color="#A40606" onClick={toggleModal}> <FaTrash /> Deletar</Button>
+                    </div>
+                )}
             </div>
             {modal && (
             <div className="modal">
