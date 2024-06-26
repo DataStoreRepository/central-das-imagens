@@ -1,8 +1,6 @@
 package com.centraldasimagens.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.centraldasimagens.model.Foto;
+import com.centraldasimagens.model.LoginRequest;
 import com.centraldasimagens.model.Usuario;
-import com.centraldasimagens.repository.UsuarioRepository;
 import com.centraldasimagens.services.UsuarioService;
 import com.centraldasimagens.dto.UsuarioRequestDTO;
 import com.centraldasimagens.dto.UsuarioRespostaDTO;
@@ -26,7 +23,7 @@ import com.centraldasimagens.dto.UsuarioRespostaDTO;
 @RestController
 @RequestMapping("/usuario")
 
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -56,4 +53,15 @@ public class UsuarioController {
     public ResponseEntity<UsuarioRespostaDTO> pegarUsuarioPorId(@PathVariable Long id) {
         return usuarioService.getById(id);
     }
+
+    @GetMapping("/login/{email}")
+    public ResponseEntity<Usuario> pegarUsuarioPorEmail(@PathVariable String email) {
+        return usuarioService.getByEmail(email);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Usuario> login(@RequestBody LoginRequest loginRequest) {
+        return usuarioService.login(loginRequest);
+    }
+
 }
