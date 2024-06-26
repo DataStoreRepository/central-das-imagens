@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Navbar from '../../components/navbar/navbar'
 import { Container } from '../../components/container/container'
 import { Loading } from '../../components/loading/loading'
 import CardPhoto from '../../components/card-photo/card-photo'
