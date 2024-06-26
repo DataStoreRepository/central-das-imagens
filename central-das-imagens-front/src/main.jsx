@@ -14,6 +14,7 @@ import { Usuarios } from './pages/usuarios/usuarios'
 import { AtualizarUsuario } from './pages/atualizar-usuario/atualizar-usuario'
 import { Login } from './pages/login/login.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
+import SearchResults from './pages/resultados-pesquisa/resultados.jsx'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>,
+  },
+  {
+    path: "/search",
+    element: <SearchResults/>,
   },
 ])
 

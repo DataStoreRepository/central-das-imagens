@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centraldasimagens.model.Foto;
+import com.centraldasimagens.repository.FotoRepository;
 import com.centraldasimagens.dto.FotoRequestDTO;
 import com.centraldasimagens.dto.FotoRespostaDTO;
 import com.centraldasimagens.services.FotoService;
@@ -26,6 +28,9 @@ public class FotoController {
 
     @Autowired
     private FotoService fotoService;
+
+    @Autowired
+    private FotoRepository fotoRepository;
 
     @GetMapping
     public List<FotoRespostaDTO> listarTodasFotos() {
@@ -51,5 +56,11 @@ public class FotoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarFoto(@PathVariable Long id) {
         return fotoService.deleteFoto(id);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Foto>> searchFotosByTitulo(@RequestParam String query) {
+        List<Foto> fotos = fotoRepository.findByTituloContainingIgnoreCase(query);
+        return ResponseEntity.ok(fotos);
     }
 }
