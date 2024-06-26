@@ -1,7 +1,6 @@
 package com.centraldasimagens.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centraldasimagens.model.Foto;
-import com.centraldasimagens.repository.FotoRepository;
 import com.centraldasimagens.dto.FotoRequestDTO;
 import com.centraldasimagens.dto.FotoRespostaDTO;
-import com.centraldasimagens.model.Usuario;
 import com.centraldasimagens.services.FotoService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -55,5 +52,4 @@ public class FotoController {
     public ResponseEntity<Void> deletarFoto(@PathVariable Long id) {
         return fotoService.deleteFoto(id);
     }
-    
 }
