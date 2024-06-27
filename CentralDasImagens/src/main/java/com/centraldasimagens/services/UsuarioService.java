@@ -91,4 +91,16 @@ public class UsuarioService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+    public boolean existsByEmail(String email) {
+        return repository.findByEmail(email) != null;
+    }
+
+    public boolean existsByName(String name) {
+        return repository.findByName(name) != null;
+    }
+
+    public Usuario save(Usuario usuario) {
+        return repository.save(usuario);
+    }
 }

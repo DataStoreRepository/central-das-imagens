@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centraldasimagens.model.LoginRequest;
@@ -44,7 +45,7 @@ public class UsuarioController {
         return usuarioService.deleteUsuario(id);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@RequestBody Usuario usuario){
         return usuarioService.updateUsuario(usuario);
     }
@@ -62,6 +63,17 @@ public class UsuarioController {
     @PostMapping("/login")
     public ResponseEntity<Usuario> login(@RequestBody LoginRequest loginRequest) {
         return usuarioService.login(loginRequest);
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<?> checkExistence(@RequestParam String email, @RequestParam String name) {
+        boolean emailExists = usuarioService.existsByEmail(email);
+        boolean nameExists = usuarioService.existsByName(name);
+        if (emailExists || nameExists) {
+            return ResponseEntity.ok().body("{\"exists\": true}");
+        } else {
+            return ResponseEntity.ok().body("{\"exists\": false}");
+        }
     }
 
 }
