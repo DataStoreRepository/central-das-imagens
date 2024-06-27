@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: red; */
     width: 100%;
     height: 900px;
     background-image: url("../../assets/city.jpg");
@@ -11,6 +10,11 @@
     background-repeat: repeat;
     padding-top: 100px;
     opacity: 0.8;
+}
+
+.error {
+    color: red;
+    font-weight: 800;
 }
 
 .fora-cad div {
