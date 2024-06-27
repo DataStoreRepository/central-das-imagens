@@ -40,7 +40,7 @@ export function AtualizarUsuario() {
         e.preventDefault()
         try {
             
-            const response = await axios.post(`http://localhost:8080/usuario`, valores);
+            const response = await axios.put(`http://localhost:8080/usuario/${id}`, valores);
             response.status = 200
             toast.success('Atualizado com sucesso!')
             setTimeout(() => {
