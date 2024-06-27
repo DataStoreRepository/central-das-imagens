@@ -45,7 +45,7 @@ export function Login () {
 
     return (
         <>
-            <Toaster/>
+            <Toaster position="top-center"/>
             <div className="div-main">
             <h1>Login</h1>
                 
