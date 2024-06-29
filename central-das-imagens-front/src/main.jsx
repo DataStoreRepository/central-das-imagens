@@ -10,6 +10,11 @@ import Imagens from './pages/imagens/imagens.jsx'
 import {AtualizarFoto} from './pages/atualizar-foto/atualizar-foto.jsx'
 import { ErroPage } from './pages/erro/erro-page.jsx'
 import { CadastrarUsuario } from './pages/cadastrar-usuario/cadastrar-usuario'
+import { Usuarios } from './pages/usuarios/usuarios'
+import { AtualizarUsuario } from './pages/atualizar-usuario/atualizar-usuario'
+import { Login } from './pages/login/login.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
+import SearchResults from './pages/resultados-pesquisa/resultados.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,10 +38,28 @@ const router = createBrowserRouter([
     path: "/cadastrar-usuario",
     element: <CadastrarUsuario/>,
   },  
+  {
+    path: "/usuarios",
+    element: <Usuarios/>,
+  }, 
+  {
+    path: "/usuarios/atualizar/:id",
+    element: <AtualizarUsuario/>,
+  },
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+  {
+    path: "/search",
+    element: <SearchResults/>,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 )

@@ -1,7 +1,6 @@
 package com.centraldasimagens.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.centraldasimagens.model.Foto;
 import com.centraldasimagens.repository.FotoRepository;
 import com.centraldasimagens.dto.FotoRequestDTO;
 import com.centraldasimagens.dto.FotoRespostaDTO;
-import com.centraldasimagens.model.Usuario;
 import com.centraldasimagens.services.FotoService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -28,73 +27,40 @@ import com.centraldasimagens.services.FotoService;
 public class FotoController {
 
     @Autowired
-    private FotoRepository repository;
-
-    @Autowired
     private FotoService fotoService;
 
-    @GetMapping
-    public List<FotoRespostaDTO> getAll() {
-        List<FotoRespostaDTO> listaFotos = repository.findAll().stream().map(FotoRespostaDTO::new).toList();
+    @Autowired
+    private FotoRepository fotoRepository;
 
-        return listaFotos;
+    @GetMapping
+    public List<FotoRespostaDTO> listarTodasFotos() {
+        return fotoService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FotoRespostaDTO> getById(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id);
-
-        if (fotoOptional.isPresent()) {
-            FotoRespostaDTO fotoRespostaDTO = new FotoRespostaDTO(fotoOptional.get());
-            return ResponseEntity.ok(fotoRespostaDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<FotoRespostaDTO> pegarFotoPorId(@PathVariable Long id) {
+        return fotoService.getById(id);
     }
 
     @PostMapping
-    public void saveFoto(@RequestBody FotoRequestDTO dados) {
-
-        Usuario usuario = new Usuario();
-        usuario.setEmail(dados.usuario().email());
-        usuario.setName(dados.usuario().name());
-        usuario.setSenha(dados.usuario().senha());
-
-        Foto foto = new Foto();
-        foto.setImagem(dados.imagem());
-        foto.setDescricao(dados.descricao());
-        foto.setTitulo(dados.titulo());
-
-        fotoService.savePhotoWithUser(foto, usuario);
-
+    public void salvarFoto(@RequestBody FotoRequestDTO dados) {
+        fotoService.saveFoto(dados);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Foto> updateFoto(@RequestBody Foto foto) {
-
-        Optional<Foto> fotoOptional = repository.findById(foto.getId());
-        Usuario usuario = new Usuario();
-        usuario.setEmail(foto.getUsuario().getEmail());
-        usuario.setName(foto.getUsuario().getName());
-        usuario.setSenha(foto.getUsuario().getSenha());
-
-        if (fotoOptional.isPresent()) {
-            fotoService.savePhotoWithUser(foto, usuario);
-            return ResponseEntity.ok(foto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Foto> atualizarFoto(@RequestBody Foto foto) {
+        return fotoService.updateFoto(foto);
     }
     
+    
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFoto(@PathVariable Long id) {
-        Optional<Foto> fotoOptional = repository.findById(id);
+    public ResponseEntity<Void> deletarFoto(@PathVariable Long id) {
+        return fotoService.deleteFoto(id);
+    }
 
-        if (fotoOptional.isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/search")
+    public ResponseEntity<List<Foto>> searchFotosByTitulo(@RequestParam String query) {
+        List<Foto> fotos = fotoRepository.findByTituloContainingIgnoreCase(query);
+        return ResponseEntity.ok(fotos);
     }
 }
